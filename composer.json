@@ -1,0 +1,53 @@
+{
+    "name": "http-interop/http-factory-discovery",
+    "description": "Utility to locate available HTTP factory implementations",
+    "keywords": [
+        "discovery",
+        "factory",
+        "http",
+        "psr-7",
+        "psr7",
+        "psr-17",
+        "psr17"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/http-interop/http-factory-discovery",
+    "authors": [
+        {
+            "name": "Woody Gilk",
+            "email": "woody.gilk@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "provide": {
+        "psr/http-factory-implementation": "^1.0"
+    },
+    "require": {
+        "php": ">=7.1",
+        "psr/http-factory": "^1.0"
+    },
+    "require-dev": {
+        "nyholm/psr7": "^1.0",
+        "phpstan/phpstan": "^0.10.3",
+        "phpstan/phpstan-phpunit": "^0.10.0",
+        "phpunit/phpunit": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Http\\Factory\\Discovery\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Http\\Factory\\Discovery\\": "tests/"
+        }
+    },
+    "scripts": {
+        "analyze": "phpstan analyse -l 7 --no-progress src",
+        "test": "phpunit --testdox"
+    }
+}
