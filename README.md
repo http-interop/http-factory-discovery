@@ -18,7 +18,7 @@ By default, the following factory implementations can be discovered:
 - [Slim](https://github.com/http-interop/http-factory-slim)
 - [Nyholm](https://github.com/Nyholm/psr7)
 
-Additional implementations [can be registered](#Registering-additional-factories).
+Additional implementations [can be registered](#registering-additional-factories).
 
 [http-factory-implementations]: https://packagist.org/providers/psr/http-factory-implementation
 
