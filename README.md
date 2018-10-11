@@ -31,7 +31,7 @@ composer require http-interop/http-factory-discovery
 ## Usage
 
 ```php
-use Http\Factory\Discovery\Discovery;
+use Http\Factory\Discovery\HttpFactory;
 
 /** @var \Psr\Http\Message\RequestFactoryInterface */
 $requestFactory = HttpFactory::requestFactory();
@@ -40,7 +40,7 @@ $requestFactory = HttpFactory::requestFactory();
 $responseFactory = HttpFactory::responseFactory();
 
 /** @var \Psr\Http\Message\ServerRequestFactoryInterface */
-$requestFactory = HttpFactory::requestFactory();
+$serverRequestFactory = HttpFactory::serverRequestFactory();
 
 /** @var \Psr\Http\Message\StreamFactoryInterface */
 $streamFactory = HttpFactory::streamFactory();
@@ -62,7 +62,7 @@ A prime example would be when writing [PSR-15 middleware][psr15]:
 ```php
 namespace Acme\Middleware;
 
-use Http\Factory\Discovery\Factory;
+use Http\Factory\Discovery\HttpFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
