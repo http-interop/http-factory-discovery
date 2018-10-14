@@ -23,9 +23,6 @@
         "sort-packages": true
     },
     "minimum-stability": "stable",
-    "provide": {
-        "psr/http-factory-implementation": "^1.0"
-    },
     "require": {
         "php": ">=7.1",
         "psr/http-factory": "^1.0"
@@ -35,6 +32,12 @@
         "phpstan/phpstan": "^0.10.3",
         "phpstan/phpstan-phpunit": "^0.10.0",
         "phpunit/phpunit": "^7.3"
+    },
+    "suggest": {
+        "http-interop/http-factory-diactoros": "HTTP Factory implementation for Zend Diactoros",
+        "http-interop/http-factory-guzzle": "HTTP Factory implementation for Guzzle",
+        "http-interop/http-factory-slim": "HTTP Factory implementation for Slim",
+        "nyholm/psr7": "HTTP Factory implementation"
     },
     "autoload": {
         "psr-4": {
