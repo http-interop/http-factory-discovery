@@ -13,10 +13,10 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
+  - composer update -n ${COMPOSER_FLAGS}
 
 script:
-  - composer test
+  - ./scripts/test-all
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
