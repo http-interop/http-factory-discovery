@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Supported implementations, except for nyholm/psr7, which is installed as the
+# default development implementation.
+packages=(
+    http-interop/http-factory-diactoros \
+    http-interop/http-factory-guzzle \
+    http-interop/http-factory-slim
+)
+
+if [ -z "$COMPOSER_FLAGS" ]; then
+    COMPOSER_FLAGS=
+fi
+
+composer test || exit 1
+composer remove --dev -n nyholm/psr7
+
+composer require --dev -n $COMPOSER_FLAGS http-interop/http-factory-diactoros "^1.0"
+composer test || exit 1
+git reset --hard
+
+composer require --dev -n $COMPOSER_FLAGS http-interop/http-factory-guzzle "^1.0"
+composer test || exit 1
+git reset --hard
+
+composer require --dev -n $COMPOSER_FLAGS http-interop/http-factory-slim "^1.0"
+composer test || exit 1
+git reset --hard
