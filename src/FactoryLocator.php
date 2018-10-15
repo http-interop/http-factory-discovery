@@ -21,36 +21,42 @@ final class FactoryLocator
             'Http\Factory\Guzzle\RequestFactory',
             'Http\Factory\Slim\RequestFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
+            'Zend\Diactoros\RequestFactory',
         ],
         ResponseFactoryInterface::class => [
             'Http\Factory\Diactoros\ResponseFactory',
             'Http\Factory\Guzzle\ResponseFactory',
             'Http\Factory\Slim\ResponseFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
+            'Zend\Diactoros\ResponseFactory',
         ],
         ServerRequestFactoryInterface::class => [
             'Http\Factory\Diactoros\ServerRequestFactory',
             'Http\Factory\Guzzle\ServerRequestFactory',
             'Http\Factory\Slim\ServerRequestFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
+            'Zend\Diactoros\ServerRequestFactory',
         ],
         StreamFactoryInterface::class => [
             'Http\Factory\Diactoros\StreamFactory',
             'Http\Factory\Guzzle\StreamFactory',
             'Http\Factory\Slim\StreamFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
+            'Zend\Diactoros\StreamFactory',
         ],
         UploadedFileFactoryInterface::class => [
             'Http\Factory\Diactoros\UploadedFileFactory',
             'Http\Factory\Guzzle\UploadedFileFactory',
             'Http\Factory\Slim\UploadedFileFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
+            'Zend\Diactoros\UploadedFileFactory',
         ],
         UriFactoryInterface::class => [
             'Http\Factory\Diactoros\UriFactory',
             'Http\Factory\Guzzle\UriFactory',
             'Http\Factory\Slim\UriFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
+            'Zend\Diactoros\UriFactory',
         ],
     ];
 

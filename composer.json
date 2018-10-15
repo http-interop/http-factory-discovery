@@ -38,7 +38,8 @@
         "http-interop/http-factory-diactoros": "HTTP Factory implementation for Zend Diactoros",
         "http-interop/http-factory-guzzle": "HTTP Factory implementation for Guzzle",
         "http-interop/http-factory-slim": "HTTP Factory implementation for Slim",
-        "nyholm/psr7": "HTTP Factory implementation"
+        "nyholm/psr7": "HTTP Messages with Factory implementation",
+        "zendframework/zend-diactoros": "HTTP Messages with Factory implementation"
     },
     "autoload": {
         "psr-4": {
