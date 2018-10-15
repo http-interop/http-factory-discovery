@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.2.0 - 2018-10-14
+
+### Added
+
+- Added support for Zend Diactoros implementation
+
 ## 1.0.2 - 2018-10-14
 
 ### Fixed
