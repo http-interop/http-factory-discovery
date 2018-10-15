@@ -31,7 +31,8 @@
         "nyholm/psr7": "^1.0",
         "phpstan/phpstan": "^0.10.3",
         "phpstan/phpstan-phpunit": "^0.10.0",
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^7.3",
+        "squizlabs/php_codesniffer": "^3.3"
     },
     "suggest": {
         "http-interop/http-factory-diactoros": "HTTP Factory implementation for Zend Diactoros",
@@ -50,7 +51,9 @@
         }
     },
     "scripts": {
-        "analyze": "phpstan analyse -l 7 --no-progress src",
-        "test": "phpunit --testdox"
+        "analyze": "phpstan analyse -l 7 --no-progress src tests",
+        "check": "phpcs",
+        "test": "phpunit --testdox",
+        "test-all": "scripts/test-all"
     }
 }

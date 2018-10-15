@@ -14,7 +14,7 @@ use RuntimeException;
 
 final class FactoryLocator
 {
-    /** @var array */
+    /** @var array  */
     private static $candidates = [
         RequestFactoryInterface::class => [
             'Http\Factory\Diactoros\RequestFactory',
@@ -60,7 +60,7 @@ final class FactoryLocator
     public static function locate(string $factoryInterface): string
     {
         foreach (self::$candidates[$factoryInterface] ?? [] as $candidate) {
-            if (class_exists($candidate) && is_a($candidate, $factoryInterface, true)) {
+            if (class_exists($candidate) && is_subclass_of($candidate, $factoryInterface, true)) {
                 return $candidate;
             }
         }
@@ -68,35 +68,34 @@ final class FactoryLocator
         throw new RuntimeException("$factoryInterface has no available implementations");
     }
 
-    /**
-     * @throws InvalidArgumentException If the factory is not supported or the implementation is invalid
-     */
     public static function register(string $factoryInterface, string $factoryImplementation): void
     {
-        if (! isset(self::$candidates[$factoryInterface])) {
-            throw new InvalidArgumentException("$factoryInterface is not a supported factory");
-        }
-
-        if (! is_a($factoryImplementation, $factoryInterface, true)) {
-            throw new InvalidArgumentException("$factoryImplementation does not implement $factoryInterface");
-        }
+        self::assertValidFactory($factoryInterface, $factoryImplementation);
 
         array_unshift(self::$candidates[$factoryInterface], $factoryImplementation);
+    }
+
+    public static function unregister(string $factoryInterface, string $factoryImplementation): void
+    {
+        self::assertValidFactory($factoryInterface, $factoryImplementation);
+
+        self::$candidates[$factoryInterface] = array_diff(
+            self::$candidates[$factoryInterface],
+            [$factoryImplementation]
+        );
     }
 
     /**
      * @throws InvalidArgumentException If the factory is not supported or the implementation is invalid
      */
-    public static function unregister(string $factoryInterface, string $factoryImplementation): void
+    private static function assertValidFactory(string $factoryInterface, string $factoryImplementation): void
     {
         if (! isset(self::$candidates[$factoryInterface])) {
             throw new InvalidArgumentException("$factoryInterface is not a supported factory");
         }
 
-        if (! is_a($factoryImplementation, $factoryInterface, true)) {
+        if (! is_subclass_of($factoryImplementation, $factoryInterface, true)) {
             throw new InvalidArgumentException("$factoryImplementation does not implement $factoryInterface");
         }
-
-        self::$candidates[$factoryInterface] = array_diff(self::$candidates[$factoryInterface], [$factoryImplementation]);
     }
 }
