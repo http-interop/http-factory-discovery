@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ -z "$COMPOSER_FLAGS" ]; then
+    COMPOSER_FLAGS=
+fi
+
+testImplementation() {
+    echo "Testing $1 version $2 ..."
+    echo
+    composer require --dev -n $COMPOSER_FLAGS "$1" "$2"
+    composer test || return 1
+    composer remove --dev -n "$1"
+    echo
+    return 0
+}
+
+testImplementation nyholm/psr7 "^1.0" || exit 1
+testImplementation http-interop/http-factory-diactoros "^1.0" || exit 1
+testImplementation http-interop/http-factory-guzzle "^1.0" || exit 1
+testImplementation http-interop/http-factory-slim "^1.0" || exit 1
+
+if [ -z "$TRAVIS" ]; then
+    echo "Resetting package state ..."
+    git checkout -- composer.json
+    composer -n -q update
+fi
