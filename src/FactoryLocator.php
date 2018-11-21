@@ -89,6 +89,8 @@ final class FactoryLocator
             self::$candidates[$factoryInterface],
             [$factoryImplementation]
         );
+
+        HttpFactory::clearCache($factoryInterface);
     }
 
     /**
