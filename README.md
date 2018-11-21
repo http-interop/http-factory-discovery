@@ -129,3 +129,20 @@ use Psr\Http\Message\UriFactoryInterface;
 
 FactoryLocator::unregister(UriFactoryInterface::class, UriFactory::class);
 ```
+
+### Clearing Cache
+
+The cache of discovered factories can be cleared:
+
+```php
+use Http\Factory\Discovery\HttpFactory;
+use Psr\Http\Message\UriFactoryInterface;
+
+// Clear a single factory
+HttpFactory::clearCache(UriFactoryInterface::class);
+
+// Clear all factories
+HttpFactory::clearCache();
+```
+
+_Note: Cache is automatically cleared when `FactorLocator::unregister()` is called._

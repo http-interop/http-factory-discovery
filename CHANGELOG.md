@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.3.0 - 2018-11-21
+
+### Added
+
+- Added support for clearing cached factories, #5 by @Stadly
+
 ## 1.2.0 - 2018-10-14
 
 ### Added
