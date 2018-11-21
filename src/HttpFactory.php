@@ -56,4 +56,13 @@ final class HttpFactory
 
         return self::$factories[$factoryInterface];
     }
+
+    public static function clearCache(?string $factoryInterface = null): void
+    {
+        if ($factoryInterface === null) {
+            self::$factories = [];
+        } else {
+            unset(self::$factories[$factoryInterface]);
+        }
+    }
 }
