@@ -3,66 +3,47 @@ declare(strict_types=1);
 
 namespace Http\Factory\Discovery;
 
-use InvalidArgumentException;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use RuntimeException;
 
-final class HttpFactory
+final class HttpFactory extends DiscoveryCache
 {
-    /** @var array */
-    private static $factories = [];
-
     public static function requestFactory(): RequestFactoryInterface
     {
-        return self::factoryInstance(RequestFactoryInterface::class);
+        return self::instance(RequestFactoryInterface::class);
     }
 
     public static function responseFactory(): ResponseFactoryInterface
     {
-        return self::factoryInstance(ResponseFactoryInterface::class);
+        return self::instance(ResponseFactoryInterface::class);
     }
 
     public static function serverRequestFactory(): ServerRequestFactoryInterface
     {
-        return self::factoryInstance(ServerRequestFactoryInterface::class);
+        return self::instance(ServerRequestFactoryInterface::class);
     }
 
     public static function streamFactory(): StreamFactoryInterface
     {
-        return self::factoryInstance(StreamFactoryInterface::class);
+        return self::instance(StreamFactoryInterface::class);
     }
 
     public static function uploadedFileFactory(): UploadedFileFactoryInterface
     {
-        return self::factoryInstance(UploadedFileFactoryInterface::class);
+        return self::instance(UploadedFileFactoryInterface::class);
     }
 
     public static function uriFactory(): UriFactoryInterface
     {
-        return self::factoryInstance(UriFactoryInterface::class);
+        return self::instance(UriFactoryInterface::class);
     }
 
-    private static function factoryInstance(string $factoryInterface)
+    protected static function locate(string $interface): string
     {
-        if (! isset(self::$factories[$factoryInterface])) {
-            $factory = FactoryLocator::locate($factoryInterface);
-            self::$factories[$factoryInterface] = new $factory();
-        }
-
-        return self::$factories[$factoryInterface];
-    }
-
-    public static function clearCache(?string $factoryInterface = null): void
-    {
-        if ($factoryInterface === null) {
-            self::$factories = [];
-        } else {
-            unset(self::$factories[$factoryInterface]);
-        }
+        return FactoryLocator::locate($interface);
     }
 }
