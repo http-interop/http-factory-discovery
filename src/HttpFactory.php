@@ -14,32 +14,32 @@ final class HttpFactory extends DiscoveryCache
 {
     public static function requestFactory(): RequestFactoryInterface
     {
-        return self::instance(RequestFactoryInterface::class);
+        return self::makeInstance(RequestFactoryInterface::class);
     }
 
     public static function responseFactory(): ResponseFactoryInterface
     {
-        return self::instance(ResponseFactoryInterface::class);
+        return self::makeInstance(ResponseFactoryInterface::class);
     }
 
     public static function serverRequestFactory(): ServerRequestFactoryInterface
     {
-        return self::instance(ServerRequestFactoryInterface::class);
+        return self::makeInstance(ServerRequestFactoryInterface::class);
     }
 
     public static function streamFactory(): StreamFactoryInterface
     {
-        return self::instance(StreamFactoryInterface::class);
+        return self::makeInstance(StreamFactoryInterface::class);
     }
 
     public static function uploadedFileFactory(): UploadedFileFactoryInterface
     {
-        return self::instance(UploadedFileFactoryInterface::class);
+        return self::makeInstance(UploadedFileFactoryInterface::class);
     }
 
     public static function uriFactory(): UriFactoryInterface
     {
-        return self::instance(UriFactoryInterface::class);
+        return self::makeInstance(UriFactoryInterface::class);
     }
 
     protected static function locate(string $interface): string

@@ -10,7 +10,7 @@ abstract class DiscoveryCache
     /** @var array */
     private static $cache = [];
 
-    protected static function instance(string $interface)
+    protected static function makeInstance(string $interface)
     {
         if (! isset(self::$cache[$interface])) {
             $implementation = static::locate($interface);
