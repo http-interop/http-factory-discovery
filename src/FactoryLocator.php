@@ -3,19 +3,17 @@ declare(strict_types=1);
 
 namespace Http\Factory\Discovery;
 
-use InvalidArgumentException;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use RuntimeException;
 
-final class FactoryLocator
+final class FactoryLocator extends DiscoveryLocator
 {
     /** @var array  */
-    private static $candidates = [
+    protected static $candidates = [
         RequestFactoryInterface::class => [
             'Http\Factory\Diactoros\RequestFactory',
             'Http\Factory\Guzzle\RequestFactory',
@@ -59,51 +57,9 @@ final class FactoryLocator
             'Zend\Diactoros\UriFactory',
         ],
     ];
-
-    /**
-     * @throws RuntimeException If no implementation is available
-     */
-    public static function locate(string $factoryInterface): string
+    
+    protected static function clearCache(?string $interface = null): void
     {
-        foreach (self::$candidates[$factoryInterface] ?? [] as $candidate) {
-            if (class_exists($candidate) && is_subclass_of($candidate, $factoryInterface, true)) {
-                return $candidate;
-            }
-        }
-
-        throw new RuntimeException("$factoryInterface has no available implementations");
-    }
-
-    public static function register(string $factoryInterface, string $factoryImplementation): void
-    {
-        self::assertValidFactory($factoryInterface, $factoryImplementation);
-
-        array_unshift(self::$candidates[$factoryInterface], $factoryImplementation);
-    }
-
-    public static function unregister(string $factoryInterface, string $factoryImplementation): void
-    {
-        self::assertValidFactory($factoryInterface, $factoryImplementation);
-
-        self::$candidates[$factoryInterface] = array_diff(
-            self::$candidates[$factoryInterface],
-            [$factoryImplementation]
-        );
-
-        HttpFactory::clearCache($factoryInterface);
-    }
-
-    /**
-     * @throws InvalidArgumentException If the factory is not supported or the implementation is invalid
-     */
-    private static function assertValidFactory(string $factoryInterface, string $factoryImplementation): void
-    {
-        if (! isset(self::$candidates[$factoryInterface])) {
-            throw new InvalidArgumentException("$factoryInterface is not a supported factory");
-        }
-
-        if (! is_subclass_of($factoryImplementation, $factoryInterface, true)) {
-            throw new InvalidArgumentException("$factoryImplementation does not implement $factoryInterface");
-        }
+        HttpFactory::clearCache($interface);
     }
 }
