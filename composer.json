@@ -61,6 +61,9 @@
         "analyze": "phpstan analyse -l 7 --no-progress src tests",
         "check": "phpcs",
         "test": "phpunit --testdox",
-        "test-all": "scripts/test-all"
+        "test-factory": "phpunit --testsuite factory --testdox",
+        "test-all-factory": "scripts/test-all-factory",
+        "test-client": "phpunit --testsuite client --testdox",
+        "test-all-client": "scripts/test-all-client"
     }
 }

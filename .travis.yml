@@ -12,13 +12,19 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+before_install:
+  - chmod +x scripts/test-all-client
+  - chmod +x scripts/test-all-factory
+
 before_script:
   - composer update -n ${COMPOSER_FLAGS}
 
 script:
   - composer analyze
   - composer check
-  - composer test-all
+  - composer test-all-client
+  - composer test-all-factory
+  - composer test
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
