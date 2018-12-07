@@ -4,11 +4,14 @@
     "keywords": [
         "discovery",
         "factory",
+        "client",
         "http",
         "psr-7",
         "psr7",
         "psr-17",
-        "psr17"
+        "psr17",
+        "psr-18",
+        "psr18"
     ],
     "type": "library",
     "license": "MIT",
