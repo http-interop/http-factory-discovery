@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.4.0 - 2018-12-08
+
+### Added
+
+- Added support for discoverying HTTP clients, #9 by @Stadly
+
 ## 1.3.0 - 2018-11-21
 
 ### Added
