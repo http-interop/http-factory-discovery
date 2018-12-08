@@ -4,6 +4,14 @@
         <testsuite name="default">
             <directory>tests/</directory>
         </testsuite>
+        <testsuite name="factory">
+            <directory>tests/FactoryLocatorTest.php</directory>
+            <directory>tests/HttpFactoryTest.php</directory>
+        </testsuite>
+        <testsuite name="client">
+            <directory>tests/ClientLocatorTest.php</directory>
+            <directory>tests/HttpClientTest.php</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist>
