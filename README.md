@@ -1,5 +1,4 @@
-HTTP Factory Discovery
-======================
+# HTTP Discovery
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/http-interop/http-factory-discovery.svg)](https://packagist.org/packages/http-interop/http-factory-discovery)
 [![License](https://img.shields.io/packagist/l/http-interop/http-factory-discovery.svg)](https://github.com/http-interop/http-factory-discovery/blob/master/LICENSE)
@@ -7,20 +6,31 @@ HTTP Factory Discovery
 [![Code Coverage](https://scrutinizer-ci.com/g/http-interop/http-factory-discovery/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/http-interop/http-factory-discovery/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/http-interop/http-factory-discovery/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/http-interop/http-factory-discovery/?branch=master)
 
-HTTP Factory service location for available [HTTP factories][http-factory-implementations].
-Allows for fast switching between different HTTP message implementations with
+Package for automatic discovery of available implementations providing HTTP
+functionality. Allows for fast switching between different implementations with
 minimal effort.
 
-By default, the following factory implementations can be discovered:
+Automatic discovery of [HTTP Factories][psr17] and [HTTP Clients][psr18] is
+supported.
+
+By default, the following implementations can be discovered:
+
+## HTTP Factory
 
 - [Guzzle](https://github.com/http-interop/http-factory-guzzle)
 - [Zend Diactoros](https://github.com/http-interop/http-factory-diactoros)
 - [Slim](https://github.com/http-interop/http-factory-slim)
 - [Nyholm](https://github.com/Nyholm/psr7)
 
-Additional implementations [can be registered](#registering-additional-factories).
+## HTTP Client
 
-[http-factory-implementations]: https://packagist.org/providers/psr/http-factory-implementation
+- [Guzzle](https://github.com/php-http/guzzle6-adapter)
+
+Additional implementations [can be registered][add-implementations].
+
+[add-implementations]: #registering-additional-implementations
+[psr17]: https://www.php-fig.org/psr/psr-17/
+[psr18]: https://www.php-fig.org/psr/psr-18/
 
 ## Install
 
@@ -29,6 +39,8 @@ composer require http-interop/http-factory-discovery
 ```
 
 ## Usage
+
+### HTTP Factory
 
 ```php
 use Http\Factory\Discovery\HttpFactory;
@@ -52,12 +64,24 @@ $uriFactory = HttpFactory::uriFactory();
 $uploadedFileFactory = HttpFactory::uploadedFileFactory();
 ```
 
+### HTTP Client
+
+```php
+use Http\Factory\Discovery\HttpClient;
+
+/** @var \Psr\Http\Client\ClientInterface */
+$client = HttpClient::client();
+```
+
 ### Best Practices
 
 Because this package acts as a [service locator][service-locator] it should be
 used to supplement [dependency injection][dependency-injection].
 
-A prime example would be when writing [PSR-15 middleware][psr15]:
+#### HTTP Factory
+
+A prime example for using HTTP Factories would be when writing
+[PSR-15 middleware][psr15]:
 
 ```php
 namespace Acme\Middleware;
@@ -103,14 +127,54 @@ class CatchErrors extends MiddlewareInterface
 }
 
 ```
-
 [service-locator]: https://en.wikipedia.org/wiki/Service_locator_pattern
 [dependency-injection]: https://en.wikipedia.org/wiki/Dependency_injection
 [psr15]: https://www.php-fig.org/psr/psr-15/
 
-### Registering Additional Factories
+#### HTTP Client
 
-Additional factories can be registered:
+An example for using both HTTP Client and HTTP Factories would be when writing
+functionality sending HTTP requests:
+
+```php
+namespace Acme;
+
+use Http\Factory\Discovery\HttpClient;
+use Http\Factory\Discovery\HttpFactory;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+
+class Api
+{
+    /** @var ClientInterface */
+    private $client;
+
+    /** @var RequestFactoryInterface */
+    private $requestFactory;
+
+    public function __construct(
+        ClientInterface $client = null,
+        RequestFactoryInterface $requestFactory = null
+    ) {
+        $this->client = $client ?? HttpClient::client();
+        $this->requestFactory = $requestFactory ?? HttpFactory::requestFactory();
+    }
+
+    public function query(): string
+    {
+        $request = $this->requestFactory->createRequest('GET', 'http://acme.com/api');
+
+        return $this->client->sendRequest($request)->getBody()->getContents();
+    }
+}
+
+```
+
+### Registering Additional Implementations
+
+Additional implementations can be registered:
+
+#### HTTP Factory
 
 ```php
 use Acme\RequestFactory;
@@ -120,7 +184,19 @@ use Psr\Http\Message\RequestFactoryInterface;
 FactoryLocator::register(RequestFactoryInterface::class, RequestFactory::class);
 ```
 
-Factories can also be unregistered, if you prefer not to use them:
+#### HTTP Client
+
+```php
+use Acme\Client;
+use Http\Factory\Discovery\ClientLocator;
+use Psr\Http\Client\ClientInterface;
+
+ClientLocator::register(ClientInterface::class, Client::class);
+```
+
+Implementations can also be unregistered, if you prefer not to use them:
+
+#### HTTP Factory
 
 ```php
 use Http\Factory\Discovery\FactoryLocator;
@@ -130,19 +206,45 @@ use Psr\Http\Message\UriFactoryInterface;
 FactoryLocator::unregister(UriFactoryInterface::class, UriFactory::class);
 ```
 
+#### HTTP Client
+
+```php
+use Http\Factory\Discovery\ClientLocator;
+use Http\Adapter\Guzzle6\Client;
+use Psr\Http\Client\ClientInterface;
+
+ClientLocator::unregister(ClientInterface::class, Client::class);
+```
+
 ### Clearing Cache
 
-The cache of discovered factories can be cleared:
+The cache of discovered implementations can be cleared:
+
+#### HTTP Factory
 
 ```php
 use Http\Factory\Discovery\HttpFactory;
 use Psr\Http\Message\UriFactoryInterface;
 
-// Clear a single factory
+// Clear a single interface
 HttpFactory::clearCache(UriFactoryInterface::class);
 
-// Clear all factories
+// Clear all interfaces
 HttpFactory::clearCache();
 ```
 
-_Note: Cache is automatically cleared when `FactorLocator::unregister()` is called._
+#### HTTP Client
+
+```php
+use Http\Factory\Discovery\HttpClient;
+use Psr\Http\Client\ClientInterface;
+
+// Clear a single interface
+HttpClient::clearCache(ClientInterface::class);
+
+// Clear all interfaces
+HttpClient::clearCache();
+```
+
+_Note: Cache is automatically cleared when `FactoryLocator::unregister()` or
+`ClientLocator::unregister()` is called._
