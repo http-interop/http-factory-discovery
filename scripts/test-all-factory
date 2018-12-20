@@ -24,6 +24,7 @@ testImplementation http-interop/http-factory-diactoros "^1.0" || exit 1
 testImplementation http-interop/http-factory-guzzle "^1.0" || exit 1
 testImplementation http-interop/http-factory-slim "^1.0" || exit 1
 testImplementation zendframework/zend-diactoros "^2.0" || exit 1
+testImplementation sunrise/http-factory "^1.0" || exit 1
 
 echo "Resetting package state ..."
 echo "$composerBackup" > composer.json
