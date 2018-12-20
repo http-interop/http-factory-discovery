@@ -9,6 +9,9 @@ composerBackup=$(cat composer.json)
 
 composer remove --dev -n nyholm/psr7 php-http/guzzle6-adapter
 
+echo "Composer clear cache ..."
+composer clearcache
+
 testImplementation() {
     echo "Testing $1 version $2 ..."
     echo
