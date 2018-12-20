@@ -12,6 +12,14 @@ composer remove --dev -n nyholm/psr7 php-http/guzzle6-adapter
 testImplementation() {
     echo "Testing $1 version $2 ..."
     echo
+
+    if [[ $TRAVIS_PHP_VERSION && ${TRAVIS_PHP_VERSION:0:3} < "7.2" && $1 == "sunrise/http-factory" ]]
+    then
+        echo "$1 skipped due to unsupported php version."
+        echo
+        return 0
+    fi
+
     composer require --dev -n $COMPOSER_FLAGS "$1" "$2"
     composer test-factory || return 1
     composer remove --dev -n "$1"
