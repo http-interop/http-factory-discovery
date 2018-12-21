@@ -25,8 +25,8 @@ testImplementation http-interop/http-factory-guzzle "^1.0" || exit 1
 testImplementation http-interop/http-factory-slim "^1.0" || exit 1
 testImplementation zendframework/zend-diactoros "^2.0" || exit 1
 
-if [[ ! "$COMPOSER_FLAGS" =~ "--prefer-lowest" ]] && [[ -z ${TRAVIS_PHP_VERSION+x} || ${TRAVIS_PHP_VERSION:0:3} >= "7.2" ]]
-then
+if [[ "$COMPOSER_FLAGS" != *"--prefer-lowest"* ]]; then
+    echo "Sunrise package missed due to unsupported composer "--prefer-lowest" mode"
     testImplementation sunrise/http-factory "^1.0" || exit 1
 fi
 
