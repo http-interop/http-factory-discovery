@@ -27,7 +27,8 @@ testImplementation zendframework/zend-diactoros "^2.0" || exit 1
 
 if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]
 then
-    echo "Sunrise package missed due to unsupported composer "--prefer-lowest" mode"
+    echo "Sunrise package missed due to unsupported composer \"--prefer-lowest\" mode"
+    echo
 else
     testImplementation sunrise/http-factory "^1.0" || exit 1
 fi
