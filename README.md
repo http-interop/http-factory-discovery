@@ -21,6 +21,7 @@ By default, the following implementations can be discovered:
 - [Zend Diactoros](https://github.com/http-interop/http-factory-diactoros)
 - [Slim](https://github.com/http-interop/http-factory-slim)
 - [Nyholm](https://github.com/Nyholm/psr7)
+- [Sunrise](https://github.com/sunrise-php/http-factory)
 
 ## HTTP Client
 

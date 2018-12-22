@@ -20,6 +20,7 @@ final class FactoryLocator extends DiscoveryLocator
             'Http\Factory\Slim\RequestFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
             'Zend\Diactoros\RequestFactory',
+            'Sunrise\Http\Factory\RequestFactory',
         ],
         ResponseFactoryInterface::class => [
             'Http\Factory\Diactoros\ResponseFactory',
@@ -27,6 +28,7 @@ final class FactoryLocator extends DiscoveryLocator
             'Http\Factory\Slim\ResponseFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
             'Zend\Diactoros\ResponseFactory',
+            'Sunrise\Http\Factory\ResponseFactory',
         ],
         ServerRequestFactoryInterface::class => [
             'Http\Factory\Diactoros\ServerRequestFactory',
@@ -34,6 +36,7 @@ final class FactoryLocator extends DiscoveryLocator
             'Http\Factory\Slim\ServerRequestFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
             'Zend\Diactoros\ServerRequestFactory',
+            'Sunrise\Http\Factory\ServerRequestFactory',
         ],
         StreamFactoryInterface::class => [
             'Http\Factory\Diactoros\StreamFactory',
@@ -41,6 +44,7 @@ final class FactoryLocator extends DiscoveryLocator
             'Http\Factory\Slim\StreamFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
             'Zend\Diactoros\StreamFactory',
+            'Sunrise\Http\Factory\StreamFactory',
         ],
         UploadedFileFactoryInterface::class => [
             'Http\Factory\Diactoros\UploadedFileFactory',
@@ -48,6 +52,7 @@ final class FactoryLocator extends DiscoveryLocator
             'Http\Factory\Slim\UploadedFileFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
             'Zend\Diactoros\UploadedFileFactory',
+            'Sunrise\Http\Factory\UploadedFileFactory',
         ],
         UriFactoryInterface::class => [
             'Http\Factory\Diactoros\UriFactory',
@@ -55,9 +60,10 @@ final class FactoryLocator extends DiscoveryLocator
             'Http\Factory\Slim\UriFactory',
             'Nyholm\Psr7\Factory\Psr17Factory',
             'Zend\Diactoros\UriFactory',
+            'Sunrise\Http\Factory\UriFactory',
         ],
     ];
-    
+
     protected static function clearCache(?string $interface = null): void
     {
         HttpFactory::clearCache($interface);
