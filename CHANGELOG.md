@@ -1,10 +1,16 @@
 # CHANGELOG
 
+## 1.5.0 - 2018-12-22
+
+### Added
+
+- Added support for Sunsise HTTP factory implementation, #12 by @fenric
+
 ## 1.4.0 - 2018-12-08
 
 ### Added
 
-- Added support for discoverying HTTP clients, #9 by @Stadly
+- Added support for discovering HTTP clients, #9 by @Stadly
 
 ## 1.3.0 - 2018-11-21
 
