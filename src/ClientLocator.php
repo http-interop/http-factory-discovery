@@ -19,6 +19,7 @@ final class ClientLocator extends DiscoveryLocator
             'Http\Adapter\Cake\Client',
             'Http\Adapter\Zend\Client',
             'Http\Adapter\Artax\Client',
+            'Buzz\Client\Curl',
         ],
     ];
     
