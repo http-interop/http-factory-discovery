@@ -10,6 +10,7 @@ final class ClientLocator extends DiscoveryLocator
     /** @var array  */
     protected static $candidates = [
         ClientInterface::class => [
+            'Http\Adapter\Guzzle7\Client',
             'Http\Adapter\Guzzle6\Client',
             'Http\Adapter\Guzzle5\Client',
             'Http\Client\Curl\Client',
