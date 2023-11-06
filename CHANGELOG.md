@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.6.0 - 2023-11-06
+
+### Added
+
+- Added support for Guzzle 7 PHP-HTTP Adapter, #14 by @Stadly
+
 ## 1.5.0 - 2018-12-22
 
 ### Added
